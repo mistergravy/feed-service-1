@@ -17,9 +17,9 @@ db.knex.schema.hasTable('feeds').then((exists) => {
       t.string('author');
       t.string('authorphoto');
       t.string('title');
-      t.text('bigphoto');
-      t.text('smallphoto');
-      t.text('newsfeed');
+      t.string('bigphoto');
+      t.string('smallphoto');
+      t.string('newsfeed');
       t.string('videoclip');
       t.timestamp('timestamp').defaultTo(knex.fn.now());
     })
