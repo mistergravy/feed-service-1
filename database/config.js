@@ -14,13 +14,13 @@ db.knex.schema.hasTable('feeds').then((exists) => {
   if (!exists) {
     return db.knex.schema.createTable('feeds', (t) => {
       t.increments('id').primary();
-      t.string('author', 255);
-      t.string('authorphoto', 255);
-      t.string('title', 255);
-      t.string('bigphoto', 255);
-      t.string('smallphoto', 255);
+      t.string('author');
+      t.string('authorphoto');
+      t.string('title');
+      t.text('bigphoto');
+      t.text('smallphoto');
       t.text('newsfeed');
-      t.string('videoclip', 255);
+      t.string('videoclip');
       t.timestamp('timestamp').defaultTo(knex.fn.now());
     })
       .then(t => console.log('Created Table:', t))
