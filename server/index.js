@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const FeedDB = require('../database/Models/FeedDB.js');
+const Feeds = require('../database/Collections/feed.js');
 
 const app = express();
 
@@ -12,16 +12,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // feed endpoint
 app.get('/espn/feeds', (req, res) => {
-  FeedDB.find({}, (err, data) => {
+
+  Feeds.query((qb) => {
+    // qb.orderBy('timestamp', 'ASC');
+    qb.limit(10);
   })
-    .limit(10)
-    .sort({ timestamp: 1 })
+    .orderBy('timestamp', 'DESC')
+    .fetchAll()
     .then((data) => {
-      res.send(data);
+      const records = data.models;
+      return records.map((rec) => {
+        return rec.attributes;
+      });
     })
-    .catch((err) => {
-      console.err(err);
-    });
+    .then(rows => res.send(rows))
+    .catch(err => console.log(err))
 });
 
 // Serve static assets if in production
