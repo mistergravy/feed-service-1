@@ -1,9 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const FeedDB = require('../database/Models/FeedDB.js');
+const client = require('../database/config.js');
 
 const app = express();
+
 
 app.use(cors());
 app.use(express.static(`${__dirname}/../client/dist`));
@@ -11,18 +12,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // feed endpoint
+
+const getFeeds = ('SELECT * FROM espn.feed');
+
 app.get('/espn/feeds', (req, res) => {
-  FeedDB.find({}, (err, data) => {
-  })
-    .limit(10)
-    .sort({ timestamp: 1 })
-    .then((data) => {
+  client.execute(getFeeds, [], (err, data) => {
+    if (err) console.log('ERROR: ', err);
+    else {
       res.send(data);
-    })
-    .catch((err) => {
-      console.err(err);
-    });
+    }
+  })
 });
+
 
 // Serve static assets if in production
 // check to see if the node environment is in production

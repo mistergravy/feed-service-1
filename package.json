@@ -7,7 +7,7 @@
     "react": "webpack -d --watch",
     "server": "nodemon server/index.js rs",
     "start": "node server/index.js rs",
-    "seedschedule": "node database/seedscripts/seedschedule.js",
+    "db:init": "node database/Models/FeedDB.sql",
     "seedfeed": "node database/seedscripts/seedfeed.js",
     "test": "jest --coverage"
   },
@@ -41,6 +41,7 @@
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
+    "cassandra-driver": "^4.0.0",
     "cors": "^2.8.5",
     "node-fetch": "^2.3.0",
     "react": "^15.4.2",
