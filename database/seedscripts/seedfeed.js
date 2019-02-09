@@ -4,7 +4,7 @@ const transform = require('stream-transform');
 const generate = require('csv-generate');
 const uuid = require('uuid/v4');
 const fs = require('fs');
-
+const Promise = require('bluebird');
 // const ramsFeed = [{
 //   id: 1,
 //   author: 'Lindsey Thiry',
@@ -17,39 +17,67 @@ const fs = require('fs');
 //   timestamp: '10:35 AM',
 // }];
 
-const data = 'id, author, authorphoto, bigphoto, newsfeed, smallphoto, timestamp, title, videoclip' + '\n';
+// const data = 'id, author, authorphoto, bigphoto, newsfeed, smallphoto, timestamp, title, videoclip' + '\n';
 
-for(let i = 1; i <= 2; i++) {
-  fs.writeFile(`/private/tmp/seed${i}.csv`, data, (err) => {
-    if (err) console.log('Error: ', err);
-    else {
-      console.log('Seedfile has been created');
-    }
-  });
-}
-
-
-function asyncInsert(seedNum) {
-  // console.log('counter: ', counter);
-  for (let j = 0; j < 50000; j++) {
-    const fakeData = `${j}, ${faker.name.findName()}, ${faker.image.imageUrl()}, ${faker.image.imageUrl()}, ${faker.lorem.paragraph()}, ${faker.image.imageUrl()}, 'astringbooya', ${faker.random.word()}, ${faker.image.imageUrl()}` + '\n';
+// for(let i = 1; i <= 2; i++) {
+//   fs.writeFile(`/private/tmp/seed${i}.csv`, data, (err) => {
+//     if (err) console.log('Error: ', err);
+//     else {
+//       console.log('Seedfile has been created');
+//     }
+//   });
+// }
 
 
-    fs.appendFile(`/private/tmp/seed${seedNum}.csv`, fakeData, (err) => {
-      if (err) console.log('error appending file', err);
-    });
-}
-  // counter++;
-  // if (counter < 50) {
-  //   asyncInsert();
+// function asyncInsert(seedNum) {
+//   // console.log('counter: ', counter);
+//   for (let j = 0; j < 50000; j++) {
+
+
+  //     fs.appendFile(`/private/tmp/seed${seedNum}.csv`, fakeData, (err) => {
+  //       if (err) console.log('error appending file', err);
+  //     });
   // }
+  //   // counter++;
+  //   // if (counter < 50) {
+  //   //   asyncInsert();
+  //   // }
+  // }
+  // for (let i = 1; i <= 2; i++) {
+  //   asyncInsert(i);
+  // };
+
+
+const data = []
+
+const insert = () => {
+  for (let i = 0; i < 500000; i++) {
+    const fakeData = `${i}, ${faker.name.findName()}, ${faker.image.imageUrl()}, ${faker.image.imageUrl()}, ${faker.lorem.paragraph()}, ${faker.image.imageUrl()}, 'astringbooya', ${faker.random.word()}, ${faker.image.imageUrl()}` + '\n';
+    data.push(fakeData);
+  }
 }
-for (let i = 1; i <= 2; i++) {
-  asyncInsert(i);
-};
 
 
+return new Promise(function (resolve, reject) {
+    resolve(insert());
+  })
+  .then(() => {
+    insert();
+    console.log('inserted second batch');
+    console.log(data.length);
+  })
+  .then(() => {
+    console.log('in second chain');
+    insert();
+});
 
+
+// function download_csv() {
+//   var csv = 'id,author,authorphoto,bigphoto,newsfeed,smallphoto,timestamp,title,videoclip\n';
+//   data.forEach(function(row) {
+//           csv += row.join(',');
+//           csv += "\n";
+//   });
 
 
 
