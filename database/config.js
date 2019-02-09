@@ -14,7 +14,7 @@ client.connect((err, res) => {
 
 const insertKeyspace = "CREATE KEYSPACE IF NOT EXISTS espn WITH REPLICATION = { 'class': 'SimpleStrategy', 'replication_factor': 1};";
 const useKeyspace = 'USE espn;';
-const createTable = 'CREATE TABLE feeds (id uuid, author text, authorphoto text, title text, bigphoto text, smallphoto text, newsfeed text, videoclip text, PRIMARY KEY(id));'
+const createTable = 'CREATE TABLE IF NOT EXISTS feeds (id int, author text, authorphoto text, title text, bigphoto text, smallphoto text, newsfeed text, videoclip text, timestamp text, PRIMARY KEY(id));'
 
 
 client.execute(insertKeyspace, [], (err, res) => {
@@ -31,6 +31,7 @@ client.execute(useKeyspace, [], (err, res) => {
   }
 });
 
+
 client.execute(createTable, [], (err, res) => {
   if (err) console.log('ERROR creating table');
   else {
@@ -40,6 +41,4 @@ client.execute(createTable, [], (err, res) => {
 
 
 module.exports = client;
-
-// USE espn;
 

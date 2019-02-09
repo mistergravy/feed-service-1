@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // feed endpoint
 
-const getFeeds = ('SELECT * FROM espn.feed');
+const getFeeds = ('SELECT * FROM espn.feeds');
 
 app.get('/espn/feeds', (req, res) => {
   client.execute(getFeeds, [], (err, data) => {

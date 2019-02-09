@@ -19,7 +19,7 @@ const fs = require('fs');
 
 const data = 'id, author, authorphoto, bigphoto, newsfeed, smallphoto, timestamp, title, videoclip' + '\n';
 
-for(let i = 1; i <= 2; i++) {
+for(let i = 3; i <= 4; i++) {
   fs.writeFile(`/private/tmp/seed${i}.csv`, data, (err) => {
     if (err) console.log('Error: ', err);
     else {
@@ -44,10 +44,9 @@ function asyncInsert(seedNum) {
   //   asyncInsert();
   // }
 }
-for (let i = 1; i <= 2; i++) {
+for (let i = 3; i <= 4; i++) {
   asyncInsert(i);
 };
-
 
 
 
