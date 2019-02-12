@@ -1,17 +1,5 @@
 const faker = require('faker');
 
-const ramsFeed = [{
-  id: 1,
-  author: 'Lindsey Thiry',
-  authorphoto: 'https://d152i52xn388ub.cloudfront.net/football/los-angeles-rams-reporter/lindsey-thiry_normal.jpg',
-  title: 'Savannah Smiles',
-  bigphoto: 'https://s3.us-east-2.amazonaws.com/espn-feed-photos/espn+images/lg5.jpg',
-  smallphoto: 'https://s3.us-east-2.amazonaws.com/espn-feed-photos/espn+images/sm5.jpg',
-  newsfeed: 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Decode this secret message. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Decode this secret message. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Meow',
-  videoclip: 'https://www.youtube.com/embed/mYXu1xeiYKA',
-}];
-
-
 const getRandomInt = (max) => {
   return Math.floor(Math.random() * (max - 0 + 1)) + 0;
 };
