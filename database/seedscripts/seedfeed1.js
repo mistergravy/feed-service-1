@@ -1,13 +1,12 @@
 const faker = require('faker');
 const fs = require('fs');
-
+const uuid = require('uuid/v4');
 const data = [];
+const moment = require('moment-timezone');
 
-const insert = () => {
-for (let i = 0; i < 1000000; i++) {
-  const fakeData = `${i}, ${faker.name.findName()}, ${faker.image.imageUrl()}, ${faker.image.imageUrl()}, ${faker.lorem.paragraph()}, ${faker.image.imageUrl()}, 'astringbooya', ${faker.random.word()}, ${faker.image.imageUrl()}` + '\n';
+for (let i = 0; i < 500000; i++) {
+  const fakeData = `${uuid()}, ${faker.name.findName()}, ${faker.image.imageUrl()}, ${faker.image.imageUrl()}, ${faker.lorem.paragraph()}, ${faker.image.imageUrl()}, ${moment().tz('America/Chicago').format()}, ${faker.lorem.word()}, ${faker.image.imageUrl()}`;
   data.push([fakeData]);
-}
 }
 
 let string = '';
