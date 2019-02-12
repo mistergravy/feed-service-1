@@ -38,7 +38,6 @@ app.get('/espn/feeds/:id', (req, res) => {
     .then((data) => {
       res.send(data);
     })
-
 });
 
 /* POST record to db */
@@ -73,6 +72,27 @@ app.post('/espn/feeds', (req, res) => {
     });
 });
 
+/* PATCH record in db */
+
+app.patch('/espn/feeds', (req, res) => {
+  const id = 10000000;
+  const author = 'grimbus mccranston';
+
+  Feed.forge({id: id})
+    .save({author: author}, {patch: true})
+    .then(() => res.send('Record altered'));
+});
+
+/* DELETE record in db */
+
+app.delete('/espn/feeds/:id', (req, res) => {
+  const { id } = req.params;
+
+  Feed.forge({id: id})
+    .destroy()
+    .then((record) => console.log('Record destroyed', record))
+    .then(() => res.send('Record deleted'))
+})
 
 // "id": 0,
 // "author": "Dana Rempel",
