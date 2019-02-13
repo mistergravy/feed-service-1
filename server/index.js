@@ -90,11 +90,11 @@ app.patch('/espn/feeds', (req, res) => {
   /* In this route, the request body would be supplied with a record ID and the attribute to be changed */
 
   const id = 10000000;
-  const author = 'grimbus mccranston';
+  const author = 'bill dabler';
 
   Feed.forge({id: id})
     .save({author: author}, {patch: true})
-    .then(() => res.send('Record altered'));
+    .then((altered) => res.send(altered));
 });
 
 /////////////////////////
@@ -106,8 +106,9 @@ app.delete('/espn/feeds/:id', (req, res) => {
 
   Feed.forge({id: id})
     .destroy()
-    .then((record) => console.log('Record destroyed', record))
-    .then(() => res.send('Record deleted'))
+    .then(record => res.send(record))
+    .then(() => console.log('Record deleted'))
+    .catch(err => console.log('Error deleting', err))
 });
 
 // Serve static assets if in production

@@ -160,11 +160,39 @@
     /* In this route, the request body would be supplied with a record ID and the attribute to be changed */
 
     const id = 10000000;
-    const author = 'grimbus mccranston';
+    const author = 'bill dabler';
 
     Feed.forge({id: id})
       .save({author: author}, {patch: true})
       .then(() => res.send('Record altered'));
   });
   ```
-  ###
+  ## RESPONSE
+  ```json
+  {
+    "id": 10000000,
+    "author": "bill dabler"
+  }
+  ```
+------------------------------------------------------------------
+# DELETE /espn/feeds/:id
+
+  - Request receives id from client to indicate which record needs to be deleted
+  - Searches db with supplied id and deletes record from db
+  - Response sends empty JSON object signifying deleted record
+  ## ROUTE
+  ```javascript
+  app.delete('/espn/feeds/:id', (req, res) => {
+  const { id } = req.params;
+
+  Feed.forge({id: id})
+    .destroy()
+    .then(record => res.send(record))
+    .then(() => console.log('Record deleted'))
+    .catch(err => console.log('Error deleting', err))
+  });
+  ```
+  ## RESPONSE
+  ```json
+  {}
+  ```
