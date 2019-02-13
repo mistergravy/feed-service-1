@@ -28,7 +28,7 @@ app.get('/espn/feeds', (req, res) => {
         return rec.attributes;
       });
     })
-    .then(rows => res.send(rows))
+    .then(rows => res.status(200).send(rows))
     .catch(err => console.log(err))
 });
 
@@ -41,7 +41,7 @@ app.get('/espn/feeds/:id', (req, res) => {
   new Feed({id: id})
     .fetch()
     .then((data) => {
-      res.send(data);
+      res.status(200).send(data);
     })
     .catch(err => console.log('ERROR: ', err));
 });
@@ -76,7 +76,7 @@ app.post('/espn/feeds', (req, res) => {
       } else {
         console.log('Record already exists');
       }
-      res.status(200).send(body);
+      res.status(201).send(body);
     })
     .catch(err => console.log('Error: ', err));
 });
@@ -94,7 +94,7 @@ app.patch('/espn/feeds', (req, res) => {
 
   Feed.forge({id: id})
     .save({author: author}, {patch: true})
-    .then((altered) => res.send(altered));
+    .then((altered) => res.status(204).send(altered));
 });
 
 /////////////////////////
@@ -106,7 +106,7 @@ app.delete('/espn/feeds/:id', (req, res) => {
 
   Feed.forge({id: id})
     .destroy()
-    .then(record => res.send(record))
+    .then(record => res.status(204).send(record))
     .then(() => console.log('Record deleted'))
     .catch(err => console.log('Error deleting', err))
 });

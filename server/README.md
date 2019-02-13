@@ -3,6 +3,7 @@
   - Request received from client when app component mounts
   - Queries database and finds 10 most recently created records
   – JSON formatted response
+  - Responds with 200 status code indicating success
   – Response sent to client to populate Feeds component
 
   ## ROUTE
@@ -20,7 +21,7 @@
         return rec.attributes;
       });
     })
-    .then(rows => res.send(rows))
+    .then(rows => res.status(200).send(rows))
     .catch(err => console.log(err))
   });
   ```
@@ -64,17 +65,18 @@
 
   - Request provided with parameter 'id'
   - Queries db with provided id attribute
+  - Responds with 200 status code indicating success
 
   ## ROUTE
   ```javascript
   app.get('/espn/feeds/:id', (req, res) => {
-    const { id } = req.params;
-    new Feed({id: id})
-      .fetch()
-      .then((data) => {
-        res.send(data);
-      })
-      .catch(err => console.log('ERROR: ', err));
+  const { id } = req.params;
+  new Feed({id: id})
+    .fetch()
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch(err => console.log('ERROR: ', err));
   });
   ```
   ## RESPONSE
@@ -96,7 +98,7 @@
 
   - Request body object representative of db Model to be inserted
   - Inserts new record into db
-  - Response sends record inserted, confirms new record insertion, logs if record exists, or logs error during insertion
+  - Response sends 201 status code, confirms new record insertion, logs if record exists, or logs error during insertion
 
   ## ROUTE
   ```javascript
@@ -126,7 +128,7 @@
       } else {
         console.log('Record already exists');
       }
-      res.status(200).send(body);
+      res.status(201).send(body);
     })
     .catch(err => console.log('Error: ', err));
   });
@@ -151,20 +153,20 @@
 
   - Request body supplies id of record and attribute to be altered
   - Updates record in db with supplied request body information
-  - Responds with success or error
+  - Responds with 204 status code
 
   ## ROUTE
   ```javascript
   app.patch('/espn/feeds', (req, res) => {
 
-    /* In this route, the request body would be supplied with a record ID and the attribute to be changed */
+  /* In this route, the request body would be supplied with a record ID and the attribute to be changed */
 
-    const id = 10000000;
-    const author = 'bill dabler';
+  const id = 10000000;
+  const author = 'bill dabler';
 
-    Feed.forge({id: id})
-      .save({author: author}, {patch: true})
-      .then(() => res.send('Record altered'));
+  Feed.forge({id: id})
+    .save({author: author}, {patch: true})
+    .then((altered) => res.status(204).send(altered));
   });
   ```
   ## RESPONSE
@@ -179,7 +181,7 @@
 
   - Request receives id from client to indicate which record needs to be deleted
   - Searches db with supplied id and deletes record from db
-  - Response sends empty JSON object signifying deleted record
+  - Response sends 204 status code and empty JSON object signifying deleted record
   ## ROUTE
   ```javascript
   app.delete('/espn/feeds/:id', (req, res) => {
@@ -187,7 +189,7 @@
 
   Feed.forge({id: id})
     .destroy()
-    .then(record => res.send(record))
+    .then(record => res.status(204).send(record))
     .then(() => console.log('Record deleted'))
     .catch(err => console.log('Error deleting', err))
   });
