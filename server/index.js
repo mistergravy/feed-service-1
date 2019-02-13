@@ -1,3 +1,4 @@
+/* eslint-disable spaced-comment */
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -11,7 +12,9 @@ app.use(express.static(`${__dirname}/../client/dist`));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+///////////////////////////
 /* GET latest 10 records */
+///////////////////////////
 
 app.get('/espn/feeds', (req, res) => {
   Feeds.query((qb) => {
@@ -29,7 +32,9 @@ app.get('/espn/feeds', (req, res) => {
     .catch(err => console.log(err))
 });
 
+/////////////////////////////
 /* GET single record by ID */
+/////////////////////////////
 
 app.get('/espn/feeds/:id', (req, res) => {
   const { id } = req.params;
@@ -38,13 +43,16 @@ app.get('/espn/feeds/:id', (req, res) => {
     .then((data) => {
       res.send(data);
     })
+    .catch(err => console.log('ERROR: ', err));
 });
 
-/* POST record to db */
+///////////////////////////
+/* POST new record to db */
+///////////////////////////
 
 app.post('/espn/feeds', (req, res) => {
 
-  // Representative of object that would be received from client
+  /* body object is representative of request asset that would be received from client */
 
   let body = {
     id: 10000000,
@@ -69,12 +77,18 @@ app.post('/espn/feeds', (req, res) => {
         console.log('Record already exists');
       }
       res.status(200).send(body);
-    });
+    })
+    .catch(err => console.log('Error: ', err));
 });
 
+////////////////////////
 /* PATCH record in db */
+////////////////////////
 
 app.patch('/espn/feeds', (req, res) => {
+
+  /* In this route, the request body would be supplied with a record ID and the attribute to be changed */
+
   const id = 10000000;
   const author = 'grimbus mccranston';
 
@@ -83,7 +97,9 @@ app.patch('/espn/feeds', (req, res) => {
     .then(() => res.send('Record altered'));
 });
 
+/////////////////////////
 /* DELETE record in db */
+/////////////////////////
 
 app.delete('/espn/feeds/:id', (req, res) => {
   const { id } = req.params;
@@ -92,17 +108,7 @@ app.delete('/espn/feeds/:id', (req, res) => {
     .destroy()
     .then((record) => console.log('Record destroyed', record))
     .then(() => res.send('Record deleted'))
-})
-
-// "id": 0,
-// "author": "Dana Rempel",
-// "authorphoto": "http://lorempixel.com/28/28",
-// "title": "Baby Fresh Central",
-// "bigphoto": "http://lorempixel.com/600/400",
-// "smallphoto": "http://lorempixel.com/200/150",
-// "newsfeed": "Suscipit sint dignissimos. Suscipit ut ipsum facere eligendi qui. Facere dolorum quae natus necessitatibus.",
-// "videoclip": "https://www.youtube.com/embed/nKLkj0FzoEo",
-// "timestamp": "2019-02-05T16:47:23.692Z"
+});
 
 // Serve static assets if in production
 // check to see if the node environment is in production
