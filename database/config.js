@@ -1,12 +1,6 @@
-const knex = require('knex')({
-  client: 'pg',
-  connection: {
-    host: '127.0.0.1',
-    user: 'me',
-    password: 'coolbeans',
-    database: 'espn',
-  },
-});
+const config = require('../knexfile.js');
+const env = 'development';
+const knex = require('knex')(config[env]);
 
 const db = require('bookshelf')(knex);
 
