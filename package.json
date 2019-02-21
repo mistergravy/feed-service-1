@@ -43,7 +43,14 @@
     "cassandra-driver": "^4.0.0",
     "cors": "^2.8.5",
     "csv-generate": "^3.2.0",
+<<<<<<< HEAD
     "moment-timezone": "^0.5.23",
+<<<<<<< HEAD
+=======
+    "newrelic": "^5.5.0",
+=======
+>>>>>>> parent of f10b6ab... seedscript generates csv and copies into cassandra db in ~6 min
+>>>>>>> 3b1f566... fixing git error
     "node-fetch": "^2.3.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",

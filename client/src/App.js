@@ -28,8 +28,7 @@ class App extends Component {
     })
       .then((res) => {
         // eslint-disable-next-line prefer-destructuring
-        console.log('this is the data in app', res.data.rows)
-        const data = res.data.rows;
+        const data = res.data;
         this.setState({
           ramsFeed: data,
         });

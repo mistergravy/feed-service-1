@@ -1,3 +1,8 @@
+const faker = require('faker');
+const db = require('../config.js');
+const transform = require('stream-transform');
+const generate = require('csv-generate');
+const uuid = require('uuid/v4');
 const fs = require('fs');
 
 
