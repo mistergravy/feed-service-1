@@ -47,6 +47,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "moment-timezone": "^0.5.23",
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -58,6 +59,8 @@
 =======
     "newrelic": "^5.5.0",
 >>>>>>> c121158dd9727ea9ab236460b3bbf3cc437b0d27
+=======
+>>>>>>> parent of f10b6ab... seedscript generates csv and copies into cassandra db in ~6 min
 =======
 >>>>>>> parent of f10b6ab... seedscript generates csv and copies into cassandra db in ~6 min
 =======
