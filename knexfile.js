@@ -21,7 +21,7 @@ module.exports = {
       password: 'coolbeans',
     },
     seeds: {
-      directory: './database/seedscripts',
+      directory: './database/seedscripts/',
     },
   },
 
