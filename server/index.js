@@ -1,5 +1,5 @@
 /* eslint-disable spaced-comment */
-// require('newrelic');
+require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -21,16 +21,12 @@ app.get('/espn/feeds', (req, res) => {
   Feeds.query((qb) => {
     qb.limit(10);
   })
-    .orderBy('timestamp', 'DESC')
+    .orderBy('id', 'DESC')
     .fetchAll()
     .then((data) => {
-      const records = data.models;
-      return records.map((rec) => {
-        return rec.attributes;
-      });
+      res.status(200).send(data);
     })
-    .then(rows => res.status(200).send(rows))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
 });
 
 /////////////////////////////
