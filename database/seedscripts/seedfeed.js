@@ -31,7 +31,7 @@ exports.seed = (knex, Promise) => knex('feeds').del()
     console.log('Inserting batch');
     return knex.batchInsert('feeds', items, 100);
 
-  });
+  })
   .then(() => {
     let items = [];
 
