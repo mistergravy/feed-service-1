@@ -8,7 +8,7 @@ const Feed = require('../database/Models/FeedDB.js');
 
 const app = express();
 
-app.use(cors());
+// app.use(cors());
 app.use(express.static(`${__dirname}/../client/dist`));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
