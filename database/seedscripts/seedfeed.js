@@ -33,7 +33,7 @@ let set = generateData(100000);
 
 const startTime = new Date().getTime();
 
-exports.seed = knex => knex('feeds').batchInsert('feeds', set, 1000)
+exports.seed = knex => knex.batchInsert('feeds', set, 1000)
   .then(() => knex.batchInsert('feeds', set, 1000))
   .then(() => knex.batchInsert('feeds', set, 1000))
   .then(() => knex.batchInsert('feeds', set, 1000))
